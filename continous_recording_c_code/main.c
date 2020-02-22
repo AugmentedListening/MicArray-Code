@@ -10,18 +10,23 @@
 #include "./include/hps_0.h"
 #include "./include/alt_types.h"
 
-//#define BUF_SIZE 380000							// Buffer size ~5 seconds
+//#define BUF_SIZE 380000
 #define HW_REGS_BASE ( ALT_STM_OFST )
 #define HW_REGS_SPAN ( 0x04000000 )
 #define HW_REGS_MASK ( HW_REGS_SPAN - 1 )
 #define DDR_BASE ( 0x00000000 )
 #define DDR_SPAN ( 0x3FFFFFFF )
-#define RECORDING_LENGTH 0x0041EB00
-#define HALF_BUF 0x000EA600
-#define BUF_SIZE 0x001D4C00
+
 #define SAMPLING_RATE 48000
 #define START_ADDRESS 0x01000000
-//48000 sampling rate
+
+#define RECORDING_TIME 90 // recording for 90 seconds
+#define NUM_MIC_PAIRS 10 // 20 total mics
+#define RECORDING_LENGTH (RECORDING_TIME * SAMPLING_RATE)//0x0041EB00
+#define BYTES_PER_SAMPLE 4
+
+#define HALF_BUF 0x000EA600
+#define BUF_SIZE 0x001D4C00 //48000 sampling rate
 void grabData(alt_u32* mem, FILE * left, FILE * right, unsigned int start, unsigned int end);
 int main() {
 	void *virtual_base;
